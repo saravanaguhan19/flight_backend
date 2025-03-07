@@ -1,0 +1,44 @@
+CREATE DATABASE flights_db;
+USE flights_db;
+
+-- Users Table
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+
+-- Flights Table
+CREATE TABLE flights (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    origin VARCHAR(10),
+    destination VARCHAR(10),
+    date DATE,
+    passengers_count INT,
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Passengers Table
+CREATE TABLE passengers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    flight_id INT,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    age INT,
+    gender ENUM('male', 'female', 'other'),
+    FOREIGN KEY (flight_id) REFERENCES flights(id) ON DELETE CASCADE
+);
+
+
+php -S localhost:8000 -t public
+
+
+echo "# flight_booking_frontend" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin git@github.com:saravanaguhan19/flight_booking_frontend.git
+git push -u origin main
